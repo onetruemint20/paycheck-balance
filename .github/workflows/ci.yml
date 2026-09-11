@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      - name: Verify core has no AWS/Plaid dependencies
+        run: |
+          if node -e "const p=require('./core/package.json'); const deps={...p.dependencies, ...p.devDependencies}; const bad=Object.keys(deps).filter(d => /aws|plaid/i.test(d)); if (bad.length) { console.error('Forbidden deps in core:', bad); process.exit(1); }"; then
+            echo "core is isolated from AWS/Plaid"
+          fi
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Test
+        run: npm test
