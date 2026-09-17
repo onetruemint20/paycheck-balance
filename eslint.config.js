@@ -5,6 +5,6 @@ module.exports = tseslint.config(
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {
-    ignores: ["**/dist/**", "**/node_modules/**", "eslint.config.js", "jest.config.js"],
+    ignores: ["**/dist/**", "**/node_modules/**", "**/cdk.out/**", "eslint.config.js", "jest.config.js"],
   }
 );

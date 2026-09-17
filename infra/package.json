@@ -7,8 +7,20 @@
   "scripts": {
     "typecheck": "tsc --noEmit",
     "build": "tsc",
-    "test": "jest"
+    "test": "jest",
+    "synth": "cdk synth",
+    "diff:dev": "cdk diff PaycheckBalance-dev",
+    "diff:prod": "cdk diff PaycheckBalance-prod",
+    "deploy:dev": "cdk deploy PaycheckBalance-dev --require-approval never",
+    "deploy:prod": "cdk deploy PaycheckBalance-prod --require-approval broadening",
+    "check-table-replacement": "ts-node src/scripts/check-table-replacement.ts"
   },
-  "dependencies": {},
-  "devDependencies": {}
+  "dependencies": {
+    "aws-cdk-lib": "^2.270.0",
+    "constructs": "^10.8.1"
+  },
+  "devDependencies": {
+    "aws-cdk": "^2.1142.0",
+    "ts-node": "^10.9.2"
+  }
 }

@@ -1,0 +1,37 @@
+name: Deploy Prod
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: prod
+    env:
+      CDK_PROD_ACCOUNT: ${{ secrets.AWS_PROD_ACCOUNT_ID }}
+      CDK_REGION: ${{ vars.AWS_REGION }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_PROD_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Check for DynamoDB table replacement
+        run: npm run check-table-replacement --workspace=infra -- PaycheckBalance-prod
+
+      - name: Deploy prod stack
+        run: npm run deploy:prod --workspace=infra

@@ -31,3 +31,6 @@ jobs:
 
       - name: Test
         run: npm test
+
+      - name: Synth infra (capacity guard)
+        run: npm run synth --workspace=infra
