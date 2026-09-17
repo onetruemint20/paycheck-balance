@@ -12,7 +12,7 @@
     "diff:dev": "cdk diff PaycheckBalance-dev",
     "diff:prod": "cdk diff PaycheckBalance-prod",
     "deploy:dev": "cdk deploy PaycheckBalance-dev --require-approval never",
-    "deploy:prod": "cdk deploy PaycheckBalance-prod --require-approval never",
+    "deploy:prod": "cdk deploy PaycheckBalance-prod --require-approval broadening",
     "check-table-replacement": "ts-node scripts/check-table-replacement.ts"
   },
   "dependencies": {
