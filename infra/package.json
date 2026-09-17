@@ -13,7 +13,7 @@
     "diff:prod": "cdk diff PaycheckBalance-prod",
     "deploy:dev": "cdk deploy PaycheckBalance-dev --require-approval never",
     "deploy:prod": "cdk deploy PaycheckBalance-prod --require-approval broadening",
-    "check-table-replacement": "ts-node scripts/check-table-replacement.ts"
+    "check-table-replacement": "ts-node src/scripts/check-table-replacement.ts"
   },
   "dependencies": {
     "aws-cdk-lib": "^2.270.0",
