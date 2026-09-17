@@ -19,9 +19,8 @@ jobs:
 
       - name: Verify core has no AWS/Plaid dependencies
         run: |
-          if node -e "const p=require('./core/package.json'); const deps={...p.dependencies, ...p.devDependencies}; const bad=Object.keys(deps).filter(d => /aws|plaid/i.test(d)); if (bad.length) { console.error('Forbidden deps in core:', bad); process.exit(1); }"; then
-            echo "core is isolated from AWS/Plaid"
-          fi
+          node -e "const p=require('./core/package.json'); const deps={...p.dependencies, ...p.devDependencies}; const bad=Object.keys(deps).filter(d => /aws|plaid/i.test(d)); if (bad.length) { console.error('Forbidden deps in core:', bad); process.exit(1); }"
+          echo "core is isolated from AWS/Plaid"
 
       - name: Typecheck
         run: npm run typecheck

@@ -7,7 +7,7 @@
   "scripts": {
     "typecheck": "tsc --noEmit",
     "build": "tsc",
-    "test": "jest"
+    "test": "vitest run --config ../vitest.config.mts app/"
   },
   "dependencies": {},
   "devDependencies": {}
